@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/support/bootstrap.php';
+
+$cli = new Tinywan\Phinx\PhinxCommand();
+$cli->setName('phinx cli');
+$cli->run();

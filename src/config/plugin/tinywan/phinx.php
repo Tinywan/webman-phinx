@@ -1,7 +1,6 @@
 <?php
 
 $config = config('thinkorm.default');
-
 return
 [
     'paths' => [
