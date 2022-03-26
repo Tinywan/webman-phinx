@@ -1,28 +1,26 @@
 <?php
 
-//$app = require config_path().'/thinkorm.php';
-//$pdo = $app->getDatabase()->getPdo();
-
-$config = config('thinkorm.default');
-var_dump($config);
+$orm = require config_path().'/thinkorm.php';
+$config = $orm['connections'][$orm['default']];
 
 return
-[
-    'paths' => [
-        'migrations' => '%%PHINX_CONFIG_DIR%%/db/migrations',
-        'seeds' => '%%PHINX_CONFIG_DIR%%/db/seeds'
-    ],
-    'environments' => [
-        'default_environment' => 'development',
-        'development' => [
-            'adapter' => 'mysql',
-            'host' => 'dnmp-mysql',
-            'name' => 'development_db',
-            'user' => 'root',
-            'pass' => '123456',
-            'port' => '3306',
-            'charset' => 'utf8',
-        ]
-    ],
-    'version_order' => 'creation'
-];
+    [
+        'paths' => [
+            'migrations' => base_path().'/db/migrations',
+            'seeds' => base_path().'/db/seeds'
+        ],
+        'environments' => [
+            'default_migration_table' => 'phinxlog',
+            'default_environment' => 'development',
+            'development' => [
+                'adapter' => 'mysql',
+                'host' => $config['hostname'] ?? 'localhost',
+                'name' => $config['database'] ?? 'development_db',
+                'user' => $config['username'] ?? 'root',
+                'pass' => $config['password'] ?? '',
+                'port' => $config['hostport'] ?? '3306',
+                'charset' => 'utf8',
+            ]
+        ],
+        'version_order' => 'creation'
+    ];
